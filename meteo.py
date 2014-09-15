@@ -25,7 +25,7 @@ class Metar:
         self.__getMIL()
         self.__makeDict()
 
-    def get(self, icao):
+    def __getitem__(self, icao):
         return self.airfields[icao]
 
     def __getGG30(self):
@@ -62,7 +62,7 @@ class Taf:
         self.__getMIL()
         self.__makeDict()
 
-    def get(self, icao):
+    def __getitem__(self, icao):
         return self.airfields[icao]
 
     def __getMIL(self):
@@ -101,8 +101,12 @@ class Gamet:
         self.driver.quit()
         self.__clearData()
 
-    def get(self, area):
+    def __getitem__(self, area):
         return self.data[area]
+
+    def print(self, area):
+        for line in self.data[area]:
+            print(line)
 
     def __getSectors(self):
         self.__getA1()
