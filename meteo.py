@@ -97,15 +97,19 @@ class Gamet:
         self.driver.implicitly_wait(30)
         self.data = {}
         self.driver.get("http://awiacja.imgw.pl/index.php?product=gamet")
-        self.__getA1()
-        self.__getA2()
-        self.__getA3()
-        self.__getA4()
+        self.__getSectors()
         self.driver.quit()
         self.__clearData()
 
     def get(self, area):
         return self.data[area]
+
+    def __getSectors(self):
+        self.__getA1()
+        self.__getA2()
+        self.__getA3()
+        self.__getA4()
+        self.__getA5()
 
     def __getA1(self):
         self.driver.find_element_by_css_selector("area[alt=\"01\"]").click()
@@ -126,6 +130,11 @@ class Gamet:
         self.driver.find_element_by_css_selector("area[alt=\"04\"]").click()
         self.element = self.driver.find_element(by=By.ID, value="prdata")
         self.data["A4"] = self.element.text.split('\n')
+
+    def __getA5(self):
+        self.driver.find_element_by_css_selector("area[alt=\"05\"]").click()
+        self.element = self.driver.find_element(by=By.ID, value="prdata")
+        self.data["A5"] = self.element.text.split('\n')
 
     def __clearData(self):
         for g in self.data.values():
