@@ -109,37 +109,15 @@ class Gamet:
             print(line)
 
     def __getSectors(self):
-        self.__getA1()
-        self.__getA2()
-        self.__getA3()
-        self.__getA4()
-        self.__getA5()
-
-    def __getA1(self):
-        self.driver.find_element_by_css_selector("area[alt=\"01\"]").click()
+        for i in range(1,6):
+            self.__getSector(i)
+        
+    def __getSector(self, sector):
+        self.driver.find_element_by_css_selector("area[alt=\"0"+str(sector)+"\"]").click()
         self.element = self.driver.find_element(by=By.ID, value="prdata")
-        self.data["A1"] = self.element.text.split('\n')
-
-    def __getA2(self):
-        self.driver.find_element_by_css_selector("area[alt=\"02\"]").click()
-        self.element = self.driver.find_element(by=By.ID, value="prdata")
-        self.data["A2"] = self.element.text.split('\n')
-
-    def __getA3(self):
-        self.driver.find_element_by_css_selector("area[alt=\"03\"]").click()
-        self.element = self.driver.find_element(by=By.ID, value="prdata")
-        self.data["A3"] = self.element.text.split('\n')
-
-    def __getA4(self):
-        self.driver.find_element_by_css_selector("area[alt=\"04\"]").click()
-        self.element = self.driver.find_element(by=By.ID, value="prdata")
-        self.data["A4"] = self.element.text.split('\n')
-
-    def __getA5(self):
-        self.driver.find_element_by_css_selector("area[alt=\"05\"]").click()
-        self.element = self.driver.find_element(by=By.ID, value="prdata")
-        self.data["A5"] = self.element.text.split('\n')
+        self.data["A"+str(sector)] = self.element.text.split('\n')
 
     def __clearData(self):
         for g in self.data.values():
             del g[0]
+
